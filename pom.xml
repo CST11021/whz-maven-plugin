@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.whz.maven.plugin</groupId>
+    <artifactId>whz-maven-plugin</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <modules>
+
+        <!-- 第一个插件 -->
+        <module>hello-maven-plugin</module>
+        <!-- 参数插件 -->
+        <module>parameter-maven-plugin</module>
+        <!-- 打包运行插件 -->
+        <module>run-maven-plugin</module>
+        <!-- 打包运行插件测试 -->
+        <module>maven-plugin-test</module>
+
+    </modules>
+
+    <properties>
+        <!-- 配置maven编译的时候采用的编译器版本 -->
+        <maven.compiler.compilerVersion>8</maven.compiler.compilerVersion>
+        <!-- 指定源代码是什么版本的，如果源码和这个版本不符将报错，maven中执行编译的时候会用到这个配置，默认是1.5，这个相当于javac命令后面的-source参数 -->
+        <maven.compiler.source>8</maven.compiler.source>
+        <!-- 该命令用于指定生成的class文件将保证和哪个版本的虚拟机进行兼容，maven中执行编译的时候会用到这个配置，默认是1.5，这个相当于javac命令后面的-target参数 -->
+        <maven.compiler.target>8</maven.compiler.target>
+        <!-- 编译代码的时候，涉及到资源文件和测试资源文件的拷贝，拷贝文件的时候涉及到文件的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <encoding>UTF-8</encoding>
+
+        <!-- 是否跳过测试，测试用例默认需要满足的格式："**/Test*.java", "**/*Test.java", "**/*TestCase.java" -->
+        <maven.test.skip>true</maven.test.skip>
+    </properties>
+
+    <!-- 配置远程仓库 -->
+    <repositories>
+        <repository>
+            <id>aliyun-maven</id>
+            <name>阿里云公共仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <!-- 配置远程插件仓库 -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>aliyun-maven-plugin</id>
+            <name>阿里云公共插件仓库</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+
+    <!-- 使用maven部署构件至nexus私服 -->
+    <distributionManagement>
+        <repository>
+            <id>release-nexus</id>
+            <url>http://localhost:8081/repository/maven-releases/</url>
+            <name>nexus私服中宿主仓库->存放/下载稳定版本的构件</name>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot-nexus</id>
+            <url>http://localhost:8081/repository/maven-snapshots/</url>
+            <name>nexus私服中宿主仓库->存放/下载快照版本的构件</name>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
